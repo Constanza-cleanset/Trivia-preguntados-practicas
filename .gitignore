@@ -1,0 +1,27 @@
+# Cache de Python (generado automáticamente al ejecutar el código)
+__pycache__/
+*.pyc
+
+# Cache de pytest (ya lo vimos en tu carpeta: .pytest_cache/)
+.pytest_cache/
+
+# Entorno virtual, por si alguna vez se crea dentro del proyecto
+# (actualmente Poetry lo guarda fuera, en ~/Library/Caches/pypoetry,
+# pero lo dejamos por las dudas)
+.venv/
+venv/
+
+# Mac: archivo de metadata de Finder que ya apareció en app/
+.DS_Store
+
+# Variables de entorno / secretos, por si en algún momento
+# sacás la URL de la base de datos de database.py y la pasás a un .env
+.env
+.env.*
+
+# Configuración personal del editor (VS Code)
+.vscode/
+
+# Archivos temporales que podría dejar algún script
+*.parquet
+*.log
