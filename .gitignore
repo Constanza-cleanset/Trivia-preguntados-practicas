@@ -18,6 +18,7 @@ venv/
 # sacás la URL de la base de datos de database.py y la pasás a un .env
 .env
 .env.*
+!.env.example
 
 # Configuración personal del editor (VS Code)
 .vscode/
