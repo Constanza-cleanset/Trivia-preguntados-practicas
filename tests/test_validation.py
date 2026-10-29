@@ -24,11 +24,11 @@ def test_get_question_accepts_negative_id_but_not_found(seeded_client):
     # FastAPI no limita el rango de un int en el path por defecto;
     # este test documenta que un id negativo no rompe la API, solo no encuentra nada.
     response = seeded_client.get("/questions/-1")
-    assert response.status_code == 200
-    assert response.json() == {"error": "Pregunta no encontrada"}
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Pregunta no encontrada"}
 
 
 def test_get_question_very_large_id_does_not_crash(seeded_client):
     response = seeded_client.get("/questions/999999999")
-    assert response.status_code == 200
-    assert response.json() == {"error": "Pregunta no encontrada"}
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Pregunta no encontrada"}

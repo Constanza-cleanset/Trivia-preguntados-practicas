@@ -35,7 +35,10 @@ def test_download_parquet_writes_response_content_to_temp_file(mock_get):
 
     path = download_parquet("https://ejemplo.com/data.parquet")
 
-    mock_get.assert_called_once_with("https://ejemplo.com/data.parquet", stream=True)
+    # download_parquet ahora pasa timeout=60 a requests.get (agregado junto
+    # con el resto de las mejoras de load_data.py), así que el mock debe
+    # esperar también ese argumento.
+    mock_get.assert_called_once_with("https://ejemplo.com/data.parquet", stream=True, timeout=60)
     with open(path, "rb") as f:
         assert f.read() == b"contenido-parquet-falso"
     os.unlink(path)

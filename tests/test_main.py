@@ -36,7 +36,9 @@ def test_get_question_found(seeded_client):
 
 def test_get_question_not_found(seeded_client):
     response = seeded_client.get("/questions/999")
-    # Nota: la API actual devuelve 200 con un JSON de error en vez de un 404.
-    # Es una decisión de la guía del profesor, no un bug de este test.
-    assert response.status_code == 200
-    assert response.json() == {"error": "Pregunta no encontrada"}
+    # La API ahora devuelve un 404 real (HTTPException), siguiendo el estándar
+    # REST. Antes devolvía 200 con un JSON de error, pero el repo de Gonzalo
+    # (nuestra referencia del profesor) usa 404 en todos estos casos, así que
+    # este test se actualiza para reflejar el comportamiento correcto.
+    assert response.status_code == 404
+    assert response.json() == {"detail": "Pregunta no encontrada"}
