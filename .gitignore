@@ -26,3 +26,4 @@ venv/
 # Archivos temporales que podría dejar algún script
 *.parquet
 *.log
+*.dump
