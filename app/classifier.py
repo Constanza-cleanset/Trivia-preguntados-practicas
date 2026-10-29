@@ -15,7 +15,16 @@ class ClassificationResult:
 
 class AIClassifier:
     def __init__(self, model_name: str = "facebook/bart-large-mnli"):
-        self._pipeline = pipeline("zero-shot-classification", model=model_name)
+        # use_safetensors=True obliga a cargar los pesos del modelo en formato
+        # safetensors (no pickle). Evita por completo el camino de torch.load
+        # vulnerable a CVE-2025-32434, sin depender de la versión de torch
+        # instalada. Si el modelo no publicara pesos en ese formato, esto
+        # fallaría explícitamente en vez de caer en silencio al formato viejo.
+        self._pipeline = pipeline(
+            "zero-shot-classification",
+            model=model_name,
+            model_kwargs={"use_safetensors": True},
+        )
         self._names = get_category_names()
         self._descriptions = get_category_descriptions()
         self._description_to_name = dict(zip(self._descriptions, self._names))
